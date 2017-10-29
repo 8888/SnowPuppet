@@ -5,14 +5,12 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://www.skicamelback.com/plan-your-trip/trail-map-conditions/');
+  const bounds = await page.evaluate( () => {
+    return document.getElementById('trailmap-1-1-snowreport').getBoundingClientRect();
+  });
   await page.screenshot({
     path: 'screenshots/camelback.png',
-    clip: {
-      x: 0,
-      y: 250,
-      width: 800,
-      height: 450
-    },
+    clip: bounds,
     omitBackground: true
   });
 
@@ -24,14 +22,13 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://www.skibluemt.com/winter-sports/skiing-snowboarding/trail-map/');
+  const bounds = await page.evaluate( () => {
+    const parent = document.getElementById('main-content');
+    return parent.getElementsByClassName('col2-content')[0].getBoundingClientRect();
+  });
   await page.screenshot({
     path: 'screenshots/blue.png',
-    clip: {
-      x: 0,
-      y: 1300,
-      width: 800,
-      height: 700
-    },
+    clip: bounds,
     omitBackground: true
   });
 
@@ -47,14 +44,12 @@ const puppeteer = require('puppeteer');
     height: 1080
   });
   await page.goto('http://www.huntermtn.com/winter/snow-report/snow-report/');
+  const bounds = await page.evaluate( () => {
+    return document.getElementById('panel-conditions').getBoundingClientRect();
+  });
   await page.screenshot({
     path: 'screenshots/hunter.png',
-    clip: {
-      x: 150,
-      y: 460,
-      width: 1050,
-      height: 375
-    },
+    clip: bounds,
     omitBackground: true
   });
 
